@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Grid, Paper, Typography, Card, CardContent, TextField, Box
+    Grid, Paper, Typography, Card, CardContent, TextField, Box, Button
 } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import { TEAMS } from "../teams";
@@ -12,13 +12,20 @@ const useStyles = theme => ({
     },
     paper: {
       padding: 5,
-      margin: 5,
+      margin: 10,
       textAlign: "center",
       color: theme.palette.text.secondary,
     },
     card: {
         padding:1,
         backgroundColor:"#F7F7F7",
+    },
+    button:{
+        marigin: theme.spacing(1),
+        backgroundColor: "#808080"
+    },
+    box:{
+        padding: theme.spacing(1),
     }
   });
 
@@ -40,11 +47,15 @@ class PRForm extends Component{
             teams: TEAMS
         }
     }
+    onSubmit(){
+        console.log("YOINK");
+    }
 
     render() {
         const { classes } = this.props;
         return(
-
+            <form>
+            <Box border={1}>
             <Grid
                 container
                 direction="row"
@@ -52,10 +63,11 @@ class PRForm extends Component{
                 alignItems="center"
                 spacing={3}
             >
-                <Grid item xs={1}></Grid> 
-                <Grid item xs={10}>
-                    <Card className={classes.card} >
-                        <CardContent>
+                <Grid item xs={6}>
+                    <Box border={1} className={classes.box}>
+                            <Typography variant="h4">
+                                Team list
+                            </Typography>
                             <TeamPaper team={this.state.teams[0]}/>
                             <TeamPaper team={this.state.teams[1]}/>
                             <TeamPaper team={this.state.teams[2]}/>
@@ -72,25 +84,46 @@ class PRForm extends Component{
                             <TeamPaper team={this.state.teams[13]}/>
                             <TeamPaper team={this.state.teams[14]}/>
                             <TeamPaper team={this.state.teams[15]}/>
-                        </CardContent>
-                    </Card>
+                    </Box>
                 </Grid>
-                <Grid item xs={1}></Grid>
-                <br />
-                <Grid item xs={1}></Grid>
-                <Grid item xs={5}>
+                <Grid item xs={6}>
+                    <Box>
+                        <Paper className={classes.paper}>
+                            <Typography varient="h4">
+                                Dropdowns Go here
+                            </Typography>
+                        </Paper>
+                    </Box>
+                </Grid>
+                {/* <Grid item xs={1}></Grid> */}
+                <Grid item xs={12}>
                     <Card>
                         <CardContent>
-                            <TextField 
+                            <Grid container>
+                            <Grid item xs={10}>
+                            <TextField
+                                fullWidth
+                                required
+                                id="player-name" 
                                 label="Player Name"
-                                // margin="normal"
-                                // variant="filled"
                             />
+                            </Grid>
+                            <Grid item xs={2}>
+                            <Button 
+                                variant="container" 
+                                className={classes.button} 
+                                type="submit"
+                                color="secondary"
+                            >Submit</Button>
+                            </Grid>
+                            </Grid>
                         </CardContent>
                     </Card>
                 </Grid>
 
             </Grid>
+            </Box>
+            </form>
             
         )
     }
